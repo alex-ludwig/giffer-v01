@@ -216,24 +216,25 @@ class outputSide(ctk.CTkFrame):
         if extension != ".mp4":
             
             image_file = Image.open(paths[0])
-            x = image_file.size[0]
-            y = image_file.size[1]
-            ar = int(x)/int(y)
-            cw = int(self.canvas.winfo_reqwidth())
-            ch = int(self.canvas.winfo_reqheight())
-            cw_end = cw
-            print(cw, ch)
-            if y > cw:
-                cw_end = ch
-            ch_end = int(cw_end*ar)
-            new_size = (cw_end, ch_end)
+            image_width = image_file.size[0]
+            image_y = image_file.size[1]
+            ar = int(image_width)/int(image_y)
+            canvas_width = int(self.canvas.winfo_reqwidth())
+            canvas_height = int(self.canvas.winfo_reqheight())
+            canvas_width_end = canvas_width
+            
+            print(canvas_width, canvas_height)
+            if y > canvas_width:
+                canvas_width_end = canvas_height
+            canvas_height_end = int(canvas_width_end*ar)
+            new_size = (canvas_width_end, canvas_height_end)
             print(new_size)
             
             
-            image_file = image_file.resize(size=(cw_end, ch_end), resample=Image.Resampling.LANCZOS)
+            image_file = image_file.resize(size=(canvas_width_end, canvas_height_end), resample=Image.Resampling.LANCZOS)
             image_asset = ImageTk.PhotoImage(image_file)
             self.image_asset = image_asset
-            self.canvas.create_image(cw/2, ch/2, anchor="center" , image=image_asset)
+            self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center" , image=image_asset)
             self.canvas.update()
             
             # image_holder = ctk.CTkLabel(self.canvas, image=imagetk, text="")
