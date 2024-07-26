@@ -217,8 +217,8 @@ class outputSide(ctk.CTkFrame):
             
             image_file = Image.open(paths[0])
             image_width = image_file.size[0]
-            image_y = image_file.size[1]
-            ar = int(image_width)/int(image_y)
+            image_height = image_file.size[1]
+            aspect_ration = int(image_width)/int(image_height)
             canvas_width = int(self.canvas.winfo_reqwidth())
             canvas_height = int(self.canvas.winfo_reqheight())
             canvas_width_end = canvas_width
@@ -226,7 +226,7 @@ class outputSide(ctk.CTkFrame):
             print(canvas_width, canvas_height)
             if y > canvas_width:
                 canvas_width_end = canvas_height
-            canvas_height_end = int(canvas_width_end*ar)
+            canvas_height_end = int(canvas_width_end*aspect_ration)
             new_size = (canvas_width_end, canvas_height_end)
             print(new_size)
             
