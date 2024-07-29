@@ -4,6 +4,7 @@ from tkinter import Canvas
 from tkvideo import tkvideo
 import os
 import sys
+import export_to_gif
 
 # Redirect stderr to /dev/null to suppress macOS specific warnings
 sys.stderr = open(os.devnull, 'w')
@@ -18,6 +19,8 @@ local = os.getcwd()
 output_area_color = "#FFF" #["#FFF", "#111"]
 output_text = "File Manager"
 output_text_color = ("#333", "#000")
+
+to_gif = export_to_gif.ExportToGif()
 
 class OutputWidget(ctk.CTkFrame):
     
@@ -48,8 +51,7 @@ class OutputWidget(ctk.CTkFrame):
             )
         self.control_frame.grid(row=3, column=0, padx=10, pady=10, columnspan=3, sticky="new")
         
-
-    def set_result(self, paths, files, extension):
+    def set_result(self, paths, files, extension, gif_properties):
         
         print("setting up results\n\n")
         
@@ -60,7 +62,30 @@ class OutputWidget(ctk.CTkFrame):
         
         #self.extension_box.insert("0.0", text=extra)
         self.show_image(paths, files, extension)
+        to_gif.export(paths, extension, gif_properties)
+        
 
+
+    '''
+    - Show image or video. 
+    - If Video, ideally the player...
+    - If image sequence, ideally check all images (play or seek)
+
+    VIDEO? 
+        - Player
+        - Check/Change: Speed, FPS, In, Out
+        
+    IMAGE? 
+        - "Player"
+        - Check/Change" Speed, keyframes, 
+        
+    - Export
+    - Restart
+    
+    - Logo, Branding..
+    - Make it a SOFTWARE
+    
+    '''
     def show_image(self, paths, files, extension):
         
         #print(extension)

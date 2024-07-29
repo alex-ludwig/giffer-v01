@@ -1,6 +1,7 @@
 import os, sys
 import customtkinter as ctk
 import footer, header, input, output
+import random
 
 # Redirect stderr to /dev/null to suppress macOS specific warnings
 sys.stderr = open(os.devnull, 'w')
@@ -12,6 +13,13 @@ v0.1
 
 '''
 ctk.set_appearance_mode("System")
+a = random.randint(0,1000)
+
+# SET TO BE DONE VIA UI!!!!!
+gif_properties = {
+    "duration":1000, 
+    "filename":f"image{a}.gif"}
+
 class App(ctk.CTk):
     
     def __init__(self, name, w, h, *args, **kwargs):
@@ -72,15 +80,12 @@ class App(ctk.CTk):
         except Exception as err:
             print("Cannot build. Reason:", err)
 
-        
-        
-    
-    
+       
     # -----------------------------------------------
     def adjust_output(self, paths, files, extension):
         
         try:
-            self.app_output.set_result(paths, files, extension)
+            self.app_output.set_result(paths, files, extension, gif_properties)
             #print("Send to Output", paths, files, extension)
             
             #app.app_output.set_result(paths, files, extension)
