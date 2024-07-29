@@ -1,4 +1,4 @@
-import c
+import tests.c as c
 
 class B(c.C):
     
